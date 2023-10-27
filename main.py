@@ -1,4 +1,4 @@
-from funciones import mostrar_menu_principal, pedir_un_numero_entero_regex
+from funciones import mostrar_menu_principal, pedir_un_numero_entero_regex, listar_nombres_jugadores_con_posiciones
 from equipo import Equipo
 
 ubicacion_archivo_dt_json = "dream_team.json"
@@ -21,7 +21,8 @@ while condicion:
     
     match opcion_menu:
         case 1:
-            print(mensaje_de_desarollo)
+            print("\nJugadores con sus Posiciones:\n****************************")
+            listar_nombres_jugadores_con_posiciones(lista_jugadores)
         case 2:
             print(mensaje_de_desarollo)
         case 3:

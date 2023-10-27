@@ -1,5 +1,7 @@
 import json, re
 
+from jugador import Jugador
+
 def cargar_lista_json(nombre_archivo_json:str) -> list:
     """
         Se encarga de cargar toda la informacion que esta en el archivo json en una lista.
@@ -88,7 +90,7 @@ def validar_numero_entero(cadena:str) -> bool:
         retorno = False
     return retorno
 
-def listar_nombres_jugadores_con_posiciones(lista:list) -> int:
+def listar_nombres_jugadores_con_posiciones(lista:list[Jugador]) -> int:
     """
         Lista todos los nombres de los jugadores del Dream Team con sus posiciones. 
 
@@ -104,7 +106,7 @@ def listar_nombres_jugadores_con_posiciones(lista:list) -> int:
 
     if len(lista) > 0:
         for jugador in lista:
-            print(f"{jugador['nombre']} - {jugador['posicion']}")
+            print(f"{jugador.get_nombre()} - {jugador.get_posicion()}")
     else:
         print("\nERROR! No hay elementos cargados en la lista para mostrar.")
         retorno = 0

@@ -13,7 +13,7 @@ class Jugador():
     def get_posicion(self) -> str:
         return self.posicion
     
-    def get_estadisticas(self) -> dict:
+    def get_estadisticas(self) -> Estadisticas:
         return self.estadisticas
     
     def get_logros(self) -> list:

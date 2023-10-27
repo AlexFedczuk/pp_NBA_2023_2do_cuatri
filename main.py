@@ -1,9 +1,11 @@
-from funciones import *
+from funciones import mostrar_menu_principal, pedir_un_numero_entero_regex
+from equipo import Equipo
 
 ubicacion_archivo_dt_json = "dream_team.json"
 mensaje_de_desarollo = "\nEsta opcion esta en desarrollo..."
 
-lista_dt = cargar_lista_json(ubicacion_archivo_dt_json)
+dream_team = Equipo()
+lista_dt = dream_team.cargar_lista_json(ubicacion_archivo_dt_json)
 lista_jugadores = lista_dt['jugadores']
 ultimo_jugador_opcion_dos = {}
 

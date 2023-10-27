@@ -87,3 +87,25 @@ def validar_numero_entero(cadena:str) -> bool:
     else:
         retorno = False
     return retorno
+
+def listar_nombres_jugadores_con_posiciones(lista:list) -> int:
+    """
+        Lista todos los nombres de los jugadores del Dream Team con sus posiciones. 
+
+        Parametros:
+        lista : list
+            La lista con los nombres a listar con sus posiciones.
+        
+        Returns:
+        tipo : int
+            Retorna un numero entero (-1) si algo salio mal, (0) si la lista esta vacia o (1) si se pudo realizar la tarea con exito.
+    """
+    retorno = -1
+
+    if len(lista) > 0:
+        for jugador in lista:
+            print(f"{jugador['nombre']} - {jugador['posicion']}")
+    else:
+        print("\nERROR! No hay elementos cargados en la lista para mostrar.")
+        retorno = 0
+    return retorno

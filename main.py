@@ -4,9 +4,14 @@ from equipo import Equipo
 ubicacion_archivo_dt_json = "dream_team.json"
 mensaje_de_desarollo = "\nEsta opcion esta en desarrollo..."
 
-dream_team = Equipo()
-lista_dt = dream_team.cargar_lista_json(ubicacion_archivo_dt_json)
-lista_jugadores = lista_dt['jugadores']
+dream_team = Equipo(ubicacion_archivo_dt_json)
+lista_jugadores = dream_team.cargar_lista_jugadores()
+
+print(lista_jugadores)
+
+for jugador in lista_jugadores:
+    print(f"{jugador.get_nombre()}")
+
 ultimo_jugador_opcion_dos = {}
 
 condicion = True
@@ -32,7 +37,7 @@ while condicion:
         case 8:
             print(mensaje_de_desarollo)
         case 0:
-            print("Saliendo del programa...")
+            print("\nSaliendo del programa...")
             condicion = False
         case _:
             print("ERROR! Valor invalido ingresado.")

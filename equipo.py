@@ -1,8 +1,9 @@
 import json
+from jugador import Jugador
 
 class Equipo():
-    def __init__(self) -> None:
-        pass
+    def __init__(self, path:str) -> None:
+        self.equipo = self.cargar_lista_json(path)
 
     def cargar_lista_json(self, nombre_archivo_json:str) -> list:
         """
@@ -48,3 +49,13 @@ class Equipo():
             retorno = False
 
         return retorno
+    
+    def cargar_lista_jugadores(self) -> list[Jugador]:
+        lista_jugadores = []
+
+        for jugador in self.equipo['jugadores']:
+            jugador = Jugador(jugador['nombre'], jugador['posicion'], jugador['estadisticas'], jugador['logros'])
+            lista_jugadores.append(jugador)
+
+        return lista_jugadores
+            

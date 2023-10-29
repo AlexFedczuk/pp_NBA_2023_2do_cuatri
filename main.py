@@ -37,17 +37,3 @@ while condicion:
             condicion = False
         case _:
             print("ERROR! Valor invalido ingresado.")
-
-"""
-
-if len(lista) > 0:
-        print("\n***** Lista de todos los jugadores del Dream Team *****\nIndice - Nombre Jugador\n-----------------------")
-        listar_nombres_jugadores_con_indice(lista)
-        indice_elegido = pedir_indice_jugador(lista)
-        jugador_encontrado = encontrar_jugador_por_indice(lista, indice_elegido)
-        mostrar_estadisticas_completas_un_jugador(jugador_encontrado)
-        retorno = jugador_encontrado
-    else:
-        print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")
-
-"""

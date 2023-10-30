@@ -1,6 +1,21 @@
 import json, re, csv
 
 from jugador import Jugador
+from typing import List
+
+def validar_lista_Jugador(lista_jugadores:List[Jugador]) -> bool:
+    resultado = True
+
+    if not isinstance(lista_jugadores, List):
+        resultado = False
+        raise TypeError("La lista ingresada debe ser una lista de objetos tipo Jugador.")
+    
+    for jugador in lista_jugadores:
+        if not isinstance(jugador, Jugador):
+            resultado = False
+            raise TypeError("Los elementos que componen la lista deben ser objetos del tipo Jugador.")
+    
+    return resultado
 
 def cargar_lista_json(nombre_archivo_json:str) -> list:
     """

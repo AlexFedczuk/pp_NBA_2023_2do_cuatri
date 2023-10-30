@@ -1,4 +1,4 @@
-from funciones import mostrar_menu_principal, pedir_un_numero_entero_regex, listar_nombres_jugadores_con_posiciones
+from funciones import mostrar_menu_principal, pedir_un_numero_entero_regex
 from equipo import Equipo
 from controladores import *
 

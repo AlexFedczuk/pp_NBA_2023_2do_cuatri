@@ -18,3 +18,15 @@ class Jugador():
     
     def get_logros(self) -> list[str]:
         return self.logros
+    
+    def set_nombre(self, nombre:str) -> None:
+        self.nombre = nombre
+    
+    def set_posicion(self, posicion:str) -> None:
+        self.posicion = posicion
+    
+    def set_estadisticas(self, estadisticas:Estadisticas) -> None:
+        self.estadisticas = estadisticas
+    
+    def set_logros(self, logros:list[str]) -> None:
+        self.logros = logros

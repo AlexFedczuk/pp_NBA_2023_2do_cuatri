@@ -25,7 +25,7 @@ while condicion:
         case 4:
             controlador_opcion_cuatro(lista_jugadores)
         case 5:
-            controlador_opcion_cinco(lista_jugadores) # FALTA ALGO ACA, MIRAR LA CONSIGNA!
+            controlador_opcion_cinco(lista_jugadores)
         case 6:
             controlador_opcion_seis(lista_jugadores)
         case 7:

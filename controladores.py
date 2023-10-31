@@ -102,7 +102,7 @@ def controlador_opcion_cuatro(lista_jugadores:list[Jugador]) -> int:
 
     return retorno
 
-def controlador_opcion_cinco(lista:list) -> int:
+def controlador_opcion_cinco(lista_jugadores:list[Jugador]) -> int:
     """
         Se encarga de contener todas las funciones necesarias para 
         realizar el algoritmo de la opcion 5 del menu principal.
@@ -116,10 +116,13 @@ def controlador_opcion_cinco(lista:list) -> int:
     """
     retorno = -1
 
-    if len(lista) > 0:
-        promedio = calcular_promedio(lista)
+    if lista_jugadores != None:
+        promedio = calcular_promedio(lista_jugadores)
         print(f"\nEl promedio de puntos por partido de todo el equipo del Dream Team: {promedio}")
-        # Falta una cosa mas en este controlador. Revisar las consignas!
+        lista_jugadores_ordenanda = ordenar_jugadores_por_nombre(lista_jugadores, None)# Falta una cosa mas en este controlador. Revisar las consignas!
+        print("Lista de jugadores ordenada: \n****************************")
+        for j in lista_jugadores_ordenanda:
+            print(f"{j.get_nombre()} - {j.get_estadisticas().get_promedio_puntos_por_partido()}")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")

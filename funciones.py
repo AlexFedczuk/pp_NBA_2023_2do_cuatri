@@ -427,6 +427,11 @@ def calcular_promedio(lista_jugadores:list[Jugador]) -> float:
 
     return retorno
 
+def ordenar_jugadores_por_nombre(lista_jugadores:list[Jugador]) -> list[Jugador]:
+    lista_jugadores.sort(key=lambda x: x.get_nombre(), reverse=False)
+
+    return lista_jugadores
+
 def comprobar_logro_en_un_jugador(jugador:Jugador, palabra_clave:str) -> bool:
     """
         Comprueba si el jugador del DT tiene x logro usando una palabra o frase clave.

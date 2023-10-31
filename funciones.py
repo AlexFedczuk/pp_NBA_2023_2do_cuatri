@@ -351,7 +351,7 @@ def generar_archivo_csv(jugador:Jugador) -> int:
         retorno = 0
     return retorno
 
-def encontrar_jugador_por_nombre(lista_jugador:list[Jugador], nombre_a_buscar:str) -> Jugador:
+def encontrar_jugador_por_nombre(lista_jugadores:list[Jugador], nombre_a_buscar:str) -> Jugador:
     """
         Busca en la lista de jugadores del DT por un nombre ingresado por parametros. 
 
@@ -363,13 +363,13 @@ def encontrar_jugador_por_nombre(lista_jugador:list[Jugador], nombre_a_buscar:st
         
         Returns:
         tipo : int
-            Retorna un diccionario vacio si algo salio mal, devuelve el diccionario del jugador
+            Retorna un None si algo salio mal, devuelve el jugador
             encontrado en el caso que se haya realizado la tarea con exito.
     """
-    retorno = {}
+    retorno = None
 
-    if lista_jugador != None:
-        for jugador in lista_jugador:
+    if validar_lista_Jugador(lista_jugadores):
+        for jugador in lista_jugadores:
             if jugador.get_nombre() == nombre_a_buscar:
                 retorno = jugador
                 break

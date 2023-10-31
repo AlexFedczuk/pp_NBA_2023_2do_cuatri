@@ -80,11 +80,11 @@ def controlador_opcion_cuatro(lista_jugadores:list[Jugador]) -> int:
             Una lista de variables, en este caso serian jugadores del Dream Team.
         
         Returns:
-        Retorna un numero entero (-1) si algo salio mal, (0) si la lista esta vacia o (1) si se pudo realizar la tarea con exito.
+        Retorna un numero entero (0) si algo salio mal, (1) si se pudo realizar la tarea con exito.
     """
-    retorno = -1
+    retorno = 0
 
-    if lista_jugadores != None:
+    if validar_lista_Jugador(lista_jugadores):
         nombre_ingresado = pedir_un_nombre_regex("\nIngrese el nombre del jugador que quiere buscar: ",
                                                  "\nERROR! Ha ingresado un valor invalido. Ingrese caracteres alfabeticos.")
         jugador_encontrado = encontrar_jugador_por_nombre(lista_jugadores, nombre_ingresado)
@@ -93,7 +93,6 @@ def controlador_opcion_cuatro(lista_jugadores:list[Jugador]) -> int:
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")
-        retorno = 0
 
     return retorno
 

@@ -417,7 +417,7 @@ def calcular_promedio(lista_jugadores:list[Jugador]) -> float:
     """
     retorno = -1
 
-    if lista_jugadores != None:
+    if validar_lista_Jugador(lista_jugadores):
         acumulador = 0
         for jugador in lista_jugadores:
             acumulador = acumulador + jugador.get_estadisticas().get_promedio_puntos_por_partido()

@@ -106,21 +106,20 @@ def controlador_opcion_cinco(lista_jugadores:list[Jugador]) -> int:
             Una lista de variables, en este caso serian jugadores del Dream Team.
         
         Returns:
-        Retorna un numero entero (-1) si algo salio mal, (0) si la lista esta vacia o (1) si se pudo realizar la tarea con exito.
+        Retorna un numero entero (0) si algo salio mal, (1) si se pudo realizar la tarea con exito.
     """
-    retorno = -1
+    retorno = 0
 
-    if lista_jugadores != None:
+    if validar_lista_Jugador(lista_jugadores):
         promedio = calcular_promedio(lista_jugadores)
         print(f"\nEl promedio de puntos por partido de todo el equipo del Dream Team: {promedio}")
-        lista_jugadores_ordenanda = ordenar_jugadores_por_nombre(lista_jugadores, None)# Falta una cosa mas en este controlador. Revisar las consignas!
+        lista_jugadores_ordenanda = ordenar_jugadores_por_nombre(lista_jugadores)# Falta una cosa mas en este controlador. Revisar las consignas!
         print("Lista de jugadores ordenada: \n****************************")
         for jugador in lista_jugadores_ordenanda:
             print(f"{jugador.get_nombre()}")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")
-        retorno = 0
 
     return retorno
 

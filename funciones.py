@@ -479,11 +479,11 @@ def encontrar_jugador_por_mayor_valor(lista_jugadores:list[Jugador]) -> Jugador:
         Returns:
         tipo : int
             Devuelve el jugador encontrado, en el caso que no
-            se haya podido encontrar devuleve un diccionario vacio.
+            se haya podido encontrar devuleve un None.
     """
-    retorno = {}
+    retorno = None
 
-    if lista_jugadores != None:
+    if validar_lista_Jugador(lista_jugadores):
         jugador_maximo = calcular_jugador_con_mayor_valor(lista_jugadores)
         retorno = jugador_maximo
     else:
@@ -504,13 +504,13 @@ def calcular_jugador_con_mayor_valor(lista_jugadores:list[Jugador]) -> Jugador:
         Returns:
         tipo : int
             Devuelve el jugador calculado con el valor mas alto, en el caso que no
-            se haya podido calcular devuleve un diccionario vacio.
+            se haya podido calcular devuleve un None.
     """
-    retorno = {}
+    retorno = None
     jugador_maximo = None
     bandera = 0
 
-    if lista_jugadores != None:
+    if validar_lista_Jugador(lista_jugadores):
         for jugador in lista_jugadores:
             if bandera == 0 or jugador_maximo.get_estadisticas().get_rebotes_totales() < jugador.get_estadisticas().get_rebotes_totales():
                 jugador_maximo = jugador
@@ -538,7 +538,7 @@ def guardar_nueva_lista_en_csv(lista_jugadores:list[Jugador], nombre_del_archivo
     """
     retorno = -1
 
-    if lista_jugadores != None and nombre_del_archivo != None:
+    if validar_lista_Jugador(lista_jugadores) and nombre_del_archivo != None:
         titulos = ["Jugador","Puntos","Rebotes","Asistencias","Robos"]
 
         with open(nombre_del_archivo, 'w', newline='') as archivo_csv:

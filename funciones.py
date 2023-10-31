@@ -6,6 +6,10 @@ from typing import List
 def validar_lista_Jugador(lista_jugadores:List[Jugador]) -> bool:
     resultado = True
 
+    if lista_jugadores == None or lista_jugadores == []:
+        resultado = False
+        raise TypeError("La lista ingresada esta vacia.")
+
     if not isinstance(lista_jugadores, List):
         resultado = False
         raise TypeError("La lista ingresada debe ser una lista de objetos tipo Jugador.")
@@ -186,18 +190,16 @@ def listar_nombres_jugadores_con_indice(lista_jugadores:list[Jugador]) -> int:
         
         Returns:
         tipo : int
-            Retorna un numero entero (-1) si algo salio mal, (0) si la lista esta vacia o (1) si se pudo realizar la tarea con exito.
+            Retorna un numero entero (0) si algo salio mal, (1) si se pudo realizar la tarea con exito.
     """
-    retorno = -1
+    retorno = 0
     contador = 0
 
-    if lista_jugadores != None:
+    if validar_lista_Jugador(lista_jugadores):
         for jugador in lista_jugadores:
             print(f"{contador} - {jugador.get_nombre()}")
             contador+=1
-    else:
-        print("\nERROR! No hay elementos cargados en la lista para mostrar.")
-        retorno = 0
+        retorno = 1
     return retorno
 
 def pedir_indice_jugador(lista_jugadores:list[Jugador]) -> int:
@@ -214,7 +216,7 @@ def pedir_indice_jugador(lista_jugadores:list[Jugador]) -> int:
     """
     retorno = -1
 
-    if lista_jugadores != None:
+    if validar_lista_Jugador(lista_jugadores):
         while True:
             indice_ingresado = pedir_un_numero_entero_regex("Ingrese el indice del jugador que quiere mostrar sus estadisticas: ", "ERROR! Ha ingresado un valor invalido.")
 
@@ -227,7 +229,7 @@ def pedir_indice_jugador(lista_jugadores:list[Jugador]) -> int:
         print("\nERROR! No hay elementos cargados en la lista como para pedir un indice.")
     return retorno
 
-def encontrar_jugador_por_indice(lista_jugadores:list[Jugador], indice_a_buscar:int) -> dict:
+def encontrar_jugador_por_indice(lista_jugadores:list[Jugador], indice_a_buscar:int) -> Jugador:
     """
         Busca en la lista de jugadores del DT por un indice ingresado por parametros. 
 
@@ -239,13 +241,13 @@ def encontrar_jugador_por_indice(lista_jugadores:list[Jugador], indice_a_buscar:
         
         Returns:
         tipo : int
-            Retorna un diccionario vacio si algo salio mal, devuelve el diccionario del jugador
+            Retorna un None si algo salio mal, devuelve el el jugador
             en el caso que se haya realizado la tarea con exito.
     """
-    retorno = {}
+    retorno = None
     contador = 0
 
-    if lista_jugadores != None and (indice_a_buscar > -1 and indice_a_buscar < len(lista_jugadores)):
+    if validar_lista_Jugador(lista_jugadores) and (indice_a_buscar > -1 and indice_a_buscar < len(lista_jugadores)):
         for jugador in lista_jugadores:
             if contador == indice_a_buscar:
                 retorno = jugador
@@ -266,24 +268,26 @@ def mostrar_estadisticas_completas_un_jugador(jugador:Jugador) -> int:
         
         Returns:
         tipo : int
-            Retorna un numero entero (-1) si salio algo mal, (0) si el diccionario esta vacio (1) si se pudo realizar la tarea con exito.
+            Retorna un numero entero (0) si salio algo mal, (1) si se pudo realizar la tarea con exito.
     """
-    retorno = -1
+    retorno = 0
 
-    print(f"\n ***** Estadisticas completas de {jugador.get_nombre()} *****")
-    estadisticas = jugador.get_estadisticas()
-    print(f"Temporadas jugadas: {estadisticas.get_temporadas()}")
-    print(f"Puntos totales: {estadisticas.get_puntos_totales()}")
-    print(f"Promedio de puntos por partido: {estadisticas.get_promedio_puntos_por_partido()}")
-    print(f"Rebotes totales: {estadisticas.get_rebotes_totales()}")
-    print(f"Promedio de rebotes por partido: {estadisticas.get_promedio_rebotes_por_partido()}")
-    print(f"Asistencias totales: {estadisticas.get_asistencias_totales()}")
-    print(f"Promedio de asistencias por partido: {estadisticas.get_promedio_asistencias_por_partido()}")
-    print(f"Robos totales: {estadisticas.get_robos_totales()}")
-    print(f"Bloqueos totales: {estadisticas.get_bloqueos_totales()}")
-    print(f"Porcentaje de tiros de campo: {estadisticas.get_porcentaje_tiros_de_campo()}")
-    print(f"Porcentaje de tiros libres: {estadisticas.get_porcentaje_tiros_libres()}")
-    print(f"Porcentaje de tiros triples: {estadisticas.get_porcentaje_tiros_triples()}")
+    if jugador != None:
+        print(f"\n ***** Estadisticas completas de {jugador.get_nombre()} *****")
+        estadisticas = jugador.get_estadisticas()
+        print(f"Temporadas jugadas: {estadisticas.get_temporadas()}")
+        print(f"Puntos totales: {estadisticas.get_puntos_totales()}")
+        print(f"Promedio de puntos por partido: {estadisticas.get_promedio_puntos_por_partido()}")
+        print(f"Rebotes totales: {estadisticas.get_rebotes_totales()}")
+        print(f"Promedio de rebotes por partido: {estadisticas.get_promedio_rebotes_por_partido()}")
+        print(f"Asistencias totales: {estadisticas.get_asistencias_totales()}")
+        print(f"Promedio de asistencias por partido: {estadisticas.get_promedio_asistencias_por_partido()}")
+        print(f"Robos totales: {estadisticas.get_robos_totales()}")
+        print(f"Bloqueos totales: {estadisticas.get_bloqueos_totales()}")
+        print(f"Porcentaje de tiros de campo: {estadisticas.get_porcentaje_tiros_de_campo()}")
+        print(f"Porcentaje de tiros libres: {estadisticas.get_porcentaje_tiros_libres()}")
+        print(f"Porcentaje de tiros triples: {estadisticas.get_porcentaje_tiros_triples()}")
+        retorno = 1
     
     return retorno
 
@@ -401,13 +405,11 @@ def mostrar_logros_un_jugador(jugador:Jugador) -> int:
 
 def calcular_promedio(lista_jugadores:list[Jugador]) -> float:
     """
-        Calcula el promedio de un total de una estadistica indicada por una clave por parametros.
+        Calcula el promedio de un total de una estadistica del jugador.
 
         Parametros:
         lista : list
             La lista con los datos necesarios para calcular un promedio.
-        clave:str
-            La clave que indica de que estadistica hay que calcular el promedio.
         
         Returns:
         tipo : float
@@ -428,6 +430,17 @@ def calcular_promedio(lista_jugadores:list[Jugador]) -> float:
     return retorno
 
 def ordenar_jugadores_por_nombre(lista_jugadores:list[Jugador]) -> list[Jugador]:
+    """
+        Ordena la lista de jugadores por nombre de forma A a la Z.
+
+        Parametros:
+        lista : list
+            La lista de jugadores.
+        
+        Returns:
+        tipo : float
+            Devuelve el promedio calculado.
+    """
     lista_jugadores.sort(key=lambda x: x.get_nombre(), reverse=False)
 
     return lista_jugadores
@@ -457,17 +470,15 @@ def comprobar_logro_en_un_jugador(jugador:Jugador, palabra_clave:str) -> bool:
 
 def encontrar_jugador_por_mayor_valor(lista_jugadores:list[Jugador]) -> Jugador:
     """
-        Busca al jugador con el valor mas alto de la estadistica indicada por una clave.
+        Busca al jugador con mas rebotes totales.
 
         Parametros:
         lista:list
             La lista con los jugadores el DT.
-        clave:str
-            La estadistica indicada a por clave.
         
         Returns:
         tipo : int
-            Devuelve el jugador encontrado mediante un diccionarion en el caso que no
+            Devuelve el jugador encontrado, en el caso que no
             se haya podido encontrar devuleve un diccionario vacio.
     """
     retorno = {}
@@ -482,7 +493,7 @@ def encontrar_jugador_por_mayor_valor(lista_jugadores:list[Jugador]) -> Jugador:
 
 def calcular_jugador_con_mayor_valor(lista_jugadores:list[Jugador]) -> Jugador:
     """
-        Calcula cual es el jugador con el valor mas alto de la estadistica indicada por una clave.
+        Calcula cual es el jugador con el valor mas alto de la estadistica.
 
         Parametros:
         lista:list

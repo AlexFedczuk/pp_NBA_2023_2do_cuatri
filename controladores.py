@@ -12,17 +12,14 @@ def controlador_opcion_uno(lista_jugadores:list[Jugador]) -> int:
             Una lista de variables, en este caso serian jugadores del Dream Team.
         
         Returns:
-            Retorna un numero entero (-1) si algo salio mal, (0) si la lista esta vacia o (1) si se pudo realizar la tarea con exito.
+            Retorna un numero entero (0) si algo salio mal, (1) si se pudo realizar la tarea con exito.
     """
-    retorno = -1
+    retorno = 0
 
-    if lista_jugadores != None:
+    if validar_lista_Jugador(lista_jugadores):
         print("\nJugadores con sus Posiciones:\n****************************")
         listar_nombres_jugadores_con_posiciones(lista_jugadores)
         retorno = 1
-    else:
-        print("\nERROR! No hay elementos cargados en la lista para mostrar.")
-        retorno = 0
 
     return retorno
 
@@ -41,15 +38,13 @@ def controlador_opcion_dos(lista_jugadores:list[Jugador]) -> Jugador:
     """
     retorno = None
 
-    if lista_jugadores != None:
+    if validar_lista_Jugador(lista_jugadores):
         print("\n***** Lista de todos los jugadores del Dream Team *****\nIndice - Nombre Jugador\n-----------------------")
         listar_nombres_jugadores_con_indice(lista_jugadores)
         indice_elegido = pedir_indice_jugador(lista_jugadores)
         jugador_encontrado = encontrar_jugador_por_indice(lista_jugadores, indice_elegido)
         mostrar_estadisticas_completas_un_jugador(jugador_encontrado)
         retorno = jugador_encontrado
-    else:
-        print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")
 
     return retorno
 
@@ -121,8 +116,8 @@ def controlador_opcion_cinco(lista_jugadores:list[Jugador]) -> int:
         print(f"\nEl promedio de puntos por partido de todo el equipo del Dream Team: {promedio}")
         lista_jugadores_ordenanda = ordenar_jugadores_por_nombre(lista_jugadores, None)# Falta una cosa mas en este controlador. Revisar las consignas!
         print("Lista de jugadores ordenada: \n****************************")
-        for j in lista_jugadores_ordenanda:
-            print(f"{j.get_nombre()} - {j.get_estadisticas().get_promedio_puntos_por_partido()}")
+        for jugador in lista_jugadores_ordenanda:
+            print(f"{jugador.get_nombre()}")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")

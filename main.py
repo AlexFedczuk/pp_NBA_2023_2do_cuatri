@@ -29,7 +29,7 @@ while condicion:
         case 6:
             controlador_opcion_seis(lista_jugadores)
         case 7:
-            controlador_opcion_siete(lista_jugadores) # FALTA ALGO ACA, MIRAR LA CONSIGNA!
+            controlador_opcion_siete(lista_jugadores)
         case 8:
             controlador_opcion_ocho(lista_jugadores)
         case 0:

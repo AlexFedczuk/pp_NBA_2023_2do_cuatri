@@ -388,9 +388,9 @@ def mostrar_logros_un_jugador(jugador:Jugador) -> int:
         
         Returns:
         tipo : int
-            Retorna un numero entero (-1) si salio algo mal, (0) si el diccionario esta vacio (1) si se pudo realizar la tarea con exito.
+            Retorna un numero entero (0) si salio algo mal, (1) si se pudo realizar la tarea con exito.
     """
-    retorno = -1
+    retorno = 0
     logros = jugador.get_logros()
 
     if jugador != {}:
@@ -399,7 +399,6 @@ def mostrar_logros_un_jugador(jugador:Jugador) -> int:
         retorno = 1
     else:
         print("ERROR! No se han encontrado logros del jugador indicado.")
-        retorno = 0
     
     return retorno
 

@@ -202,3 +202,30 @@ def controlador_opcion_ocho(lista_jugadores:list[Jugador]) -> int:
         retorno = 0
 
     return retorno
+
+def controlador_opcion_nueve(lista_jugadores:list[Jugador]) -> int:
+    """
+        Se encarga de contener todas las funciones necesarias para 
+        realizar el algoritmo de la opcion 9 del menu principal.
+
+        Parametros:
+        lista : list
+            Una lista de variables, en este caso serian jugadores del Dream Team.
+        
+        Returns:
+        Retorna un numero entero (0) si algo salio mal, (1) si se pudo realizar la tarea con exito.
+    """
+    retorno = 0
+
+    if validar_lista_Jugador(lista_jugadores):
+        lista_jugadores_ordenanda = ordenar_jugadores_por_promedio_asist_partido(lista_jugadores)
+        guardar_una_lista_en_csv(lista_jugadores_ordenanda, "fedczuk.csv")
+        guardar_lista_jugadores_a_json(lista_jugadores_ordenanda, "fedczuk.json")
+        #print("Lista de jugadores ordenada por promedio_asist_partido: \n*****************************************")
+        #for jugador in lista_jugadores_ordenanda:
+        #    print(f"{jugador.get_nombre()} - {jugador.get_estadisticas().get_promedio_asistencias_por_partido()}")
+        retorno = 1
+    else:
+        print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")
+
+    return retorno

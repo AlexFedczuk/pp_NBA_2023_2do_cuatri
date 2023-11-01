@@ -64,7 +64,7 @@ def mostrar_menu_principal():
     print("7. Calcular y mostrar el jugador con la mayor cantidad de rebotes totales.")
     print("8. Exportar a CSV.")
     print("EJERCICIOS AGREGADOS")
-    print("9. Ordenar y guardar listado de jugadores por su promedio de asistencias por partido.")
+    print("9. Ordenar y guardar listado de jugadores por su promedio de asistencias por partido en archivo .csv y .json.")
     print("0. Salir del programa")
 
 def pedir_un_numero_entero_regex(mensaje:str, mensaje_error:str) -> int:
@@ -623,6 +623,34 @@ def guardar_lista_jugadores_a_json(lista_jugadores:list[Jugador], nombre_archivo
 
         with open(nombre_archivo, 'w') as archivo_json:
             json.dump(lista_dict_jugadores, archivo_json)
+        print("El archivo JSON se pudo generar con exito!")
         retorno = 1
 
+    return retorno
+
+def pedir_un_nombre_regex(mensaje:str, mensaje_de_error:str) -> str:
+    """
+        Pide un numero nombre al usuario por la terminal.
+
+        Parametros:
+        mensaje:str
+            El mensaje para instruir al usuario.
+        mensaje_error:str
+            El mensaje para instruir al usuario en caso de un error.
+        
+        Returns:
+        tipo : int
+            Retorna una variable tipo string vacia si sale algo mal, retorna una cadena con un nombre en el cas oque este bien validado.
+    """
+    retorno = ""
+    patron = r"^[A-Za-z\s]+$"    
+
+    while True:
+        nombre_ingresado = input(mensaje)
+
+        if re.match(patron, nombre_ingresado):
+            retorno = formalizar_nombre_completo(nombre_ingresado)
+            break
+        else:
+            print(mensaje_de_error)            
     return retorno

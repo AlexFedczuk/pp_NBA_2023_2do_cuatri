@@ -220,10 +220,8 @@ def controlador_opcion_nueve(lista_jugadores:list[Jugador]) -> int:
     if validar_lista_Jugador(lista_jugadores):
         lista_jugadores_ordenanda = ordenar_jugadores_por_promedio_asist_partido(lista_jugadores)
         guardar_una_lista_en_csv(lista_jugadores_ordenanda, "fedczuk.csv")
-        guardar_lista_jugadores_a_json(lista_jugadores_ordenanda, "fedczuk.json")
-        #print("Lista de jugadores ordenada por promedio_asist_partido: \n*****************************************")
-        #for jugador in lista_jugadores_ordenanda:
-        #    print(f"{jugador.get_nombre()} - {jugador.get_estadisticas().get_promedio_asistencias_por_partido()}")
+        nombre_archivo_json = pedir_un_nombre_regex("Ingrese un nombre para el archivo JSON: ", "ERROR! Valor invalido ingresado.")
+        guardar_lista_jugadores_a_json(lista_jugadores_ordenanda, nombre_archivo_json + ".json")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")

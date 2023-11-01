@@ -114,7 +114,7 @@ def controlador_opcion_cinco(lista_jugadores:list[Jugador]) -> int:
     if validar_lista_Jugador(lista_jugadores):
         promedio = calcular_promedio(lista_jugadores)
         print(f"\nEl promedio de puntos por partido de todo el equipo del Dream Team: {promedio}")
-        lista_jugadores_ordenanda = ordenar_jugadores_por_nombre(lista_jugadores)# Falta una cosa mas en este controlador. Revisar las consignas!
+        lista_jugadores_ordenanda = ordenar_jugadores_por_nombre(lista_jugadores, True)# Falta una cosa mas en este controlador. Revisar las consignas!
         print("Lista de jugadores ordenada: \n****************************")
         for jugador in lista_jugadores_ordenanda:
             print(f"{jugador.get_nombre()}")
@@ -244,10 +244,12 @@ def controlador_opcion_diez(lista_jugadores:list[Jugador]) -> int:
     retorno = 0
 
     if validar_lista_Jugador(lista_jugadores):
-        lista_ordenada = ordenar_jugadores_dos_valores(lista_jugadores)
-        print("Nombre - Robos Totales - Bloqueos Totales = Suma Total") 
-        for jugador in lista_ordenada:
-            print(f"{jugador.get_nombre()} - {jugador.get_estadisticas().get_robos_totales()} - {jugador.get_estadisticas().get_bloqueos_totales()} = {jugador.get_estadisticas().get_robos_totales() + jugador.get_estadisticas().get_bloqueos_totales()}")
+        lista_ordenada = ordenar_jugadores_dos_valores(lista_jugadores, False)
+        valor_maximo = conseguir_valor_maximo_robos_totales_mas_bloqueos_totales(lista_jugadores)
+        numero_ingresado = pedir_numero_con_rango(len(lista_jugadores), 1)
+        print("\nNombre - Robos Totales + Bloqueos Totales - Porcentaje:\n******************************************************")
+        for i in range(0, numero_ingresado):
+            print(f"{lista_ordenada[i].get_nombre()} - {lista_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales()} - {conseguir_porcentaje(valor_maximo, lista_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales())}%")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")

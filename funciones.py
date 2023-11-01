@@ -432,7 +432,7 @@ def calcular_promedio(lista_jugadores:list[Jugador]) -> float:
 
     return retorno
 
-def ordenar_jugadores_por_nombre(lista_jugadores:list[Jugador]) -> list[Jugador]:
+def ordenar_jugadores_por_nombre(lista_jugadores:list[Jugador], descendente:bool) -> list[Jugador]:
     """
         Ordena la lista de jugadores por nombre de forma A a la Z.
 
@@ -444,9 +444,25 @@ def ordenar_jugadores_por_nombre(lista_jugadores:list[Jugador]) -> list[Jugador]
         tipo : float
             Devuelve el promedio calculado.
     """
-    lista_jugadores.sort(key=lambda x: x.get_nombre(), reverse=False)
+    lista_ordenada = []
+    if validar_lista_Jugador(lista_jugadores):
+        lista_ordenada = lista_jugadores
+        jugador_aux = lista_ordenada[0]
 
-    return lista_jugadores
+        for i in range(0, len(lista_jugadores)):
+            for j in range(0, len(lista_jugadores) - 1):
+                if descendente:
+                    if lista_ordenada[i].get_nombre().upper() < lista_ordenada[j].get_nombre().upper():
+                        jugador_aux = lista_ordenada[i]
+                        lista_ordenada[i] = lista_ordenada[j]
+                        lista_ordenada[j] = jugador_aux
+                else:
+                    if lista_ordenada[i].get_nombre().upper() > lista_ordenada[j].get_nombre().upper():
+                        jugador_aux = lista_ordenada[i]
+                        lista_ordenada[i] = lista_ordenada[j]
+                        lista_ordenada[j] = jugador_aux
+
+    return lista_ordenada
 
 def comprobar_logro_en_un_jugador(jugador:Jugador, palabra_clave:str) -> bool:
     """
@@ -657,7 +673,7 @@ def pedir_un_nombre_regex(mensaje:str, mensaje_de_error:str) -> str:
             print(mensaje_de_error)            
     return retorno
 
-def ordenar_jugadores_dos_valores(lista_jugadores:list[Jugador], decendente:bool) -> list[Jugador]:
+def ordenar_jugadores_dos_valores(lista_jugadores:list[Jugador], descendente:bool) -> list[Jugador]:
     lista_jugadores_ordenada = []
 
     if validar_lista_Jugador(lista_jugadores):
@@ -666,7 +682,7 @@ def ordenar_jugadores_dos_valores(lista_jugadores:list[Jugador], decendente:bool
 
         for i in range(0, len(lista_jugadores_ordenada)):
             for j in range(0, len(lista_jugadores_ordenada) - 1):
-                if decendente:
+                if descendente:
                     if (lista_jugadores_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales()) < (lista_jugadores_ordenada[j].get_estadisticas().get_robos_totales_mas_bloqueos_totales()):
                         jugador_aux = lista_jugadores_ordenada[i]
                         lista_jugadores_ordenada[i] = lista_jugadores_ordenada[j]
@@ -678,5 +694,29 @@ def ordenar_jugadores_dos_valores(lista_jugadores:list[Jugador], decendente:bool
                         lista_jugadores_ordenada[j] = jugador_aux
 
 
-    return lista_jugadores_ordenada 
+    return lista_jugadores_ordenada
+
+def conseguir_valor_maximo_robos_totales_mas_bloqueos_totales(lista_jugadores:list[Jugador]):
+    valor_maximo = None
+
+    if validar_lista_Jugador(lista_jugadores):
+        for jugador in lista_jugadores:
+            if valor_maximo == None or valor_maximo < jugador.get_estadisticas().get_robos_totales_mas_bloqueos_totales():
+                valor_maximo = jugador.get_estadisticas().get_robos_totales_mas_bloqueos_totales()
+
+    return valor_maximo
+
+def conseguir_porcentaje(valor_maximo:int or float, valor_ingresado:int or float) -> float:
+    return round((valor_ingresado * 100) / valor_maximo, 2)
+
+def pedir_numero_con_rango(maximo:int, minimo:int) -> int:
+    while True:
+        numero_ingresado = pedir_un_numero_entero_regex(f"Ingrese un numero no mayor a {maximo} y no menor a {minimo}: ", "ERROR! Valor invalido ingresado.")
+
+        if numero_ingresado <= maximo and numero_ingresado >= minimo:
+            break
+
+    return numero_ingresado
+
+
 

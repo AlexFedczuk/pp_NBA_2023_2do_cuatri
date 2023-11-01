@@ -34,6 +34,8 @@ while condicion:
             controlador_opcion_ocho(lista_jugadores)
         case 9:
             controlador_opcion_nueve(lista_jugadores)
+        case 10:
+            controlador_opcion_diez(lista_jugadores)
         case 0:
             print("\nSaliendo del programa...")
             condicion = False

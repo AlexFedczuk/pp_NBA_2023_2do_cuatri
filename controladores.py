@@ -1,3 +1,4 @@
+from equipo import Equipo
 from jugador import Jugador
 from funciones import *
 
@@ -195,7 +196,7 @@ def controlador_opcion_ocho(lista_jugadores:list[Jugador]) -> int:
     retorno = 0
 
     if validar_lista_Jugador(lista_jugadores):
-        guardar_nueva_lista_en_csv(lista_jugadores, "jugadores_del_DT_y_sus_puntos.csv")
+        Equipo.guardar_nueva_lista_en_csv(lista_jugadores, "jugadores_del_DT_y_sus_puntos.csv")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")
@@ -219,9 +220,34 @@ def controlador_opcion_nueve(lista_jugadores:list[Jugador]) -> int:
 
     if validar_lista_Jugador(lista_jugadores):
         lista_jugadores_ordenanda = ordenar_jugadores_por_promedio_asist_partido(lista_jugadores)
-        guardar_una_lista_en_csv(lista_jugadores_ordenanda, "fedczuk.csv")
+        Equipo.guardar_una_lista_en_csv(lista_jugadores_ordenanda, "fedczuk.csv")
         nombre_archivo_json = pedir_un_nombre_regex("Ingrese un nombre para el archivo JSON: ", "ERROR! Valor invalido ingresado.")
-        guardar_lista_jugadores_a_json(lista_jugadores_ordenanda, nombre_archivo_json + ".json")
+        Equipo.guardar_lista_jugadores_a_json(lista_jugadores_ordenanda, nombre_archivo_json + ".json")
+        retorno = 1
+    else:
+        print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")
+
+    return retorno
+
+def controlador_opcion_diez(lista_jugadores:list[Jugador]) -> int:
+    """
+        Se encarga de contener todas las funciones necesarias para 
+        realizar el algoritmo de la opcion 10 del menu principal.
+
+        Parametros:
+        lista : list
+            Una lista de variables, en este caso serian jugadores del Dream Team.
+        
+        Returns:
+        Retorna un numero entero (0) si algo salio mal, (1) si se pudo realizar la tarea con exito.
+    """
+    retorno = 0
+
+    if validar_lista_Jugador(lista_jugadores):
+        lista_ordenada = ordenar_jugadores_dos_valores(lista_jugadores)
+        print("Nombre - Robos Totales - Bloqueos Totales = Suma Total") 
+        for jugador in lista_ordenada:
+            print(f"{jugador.get_nombre()} - {jugador.get_estadisticas().get_robos_totales()} - {jugador.get_estadisticas().get_bloqueos_totales()} = {jugador.get_estadisticas().get_robos_totales() + jugador.get_estadisticas().get_bloqueos_totales()}")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")

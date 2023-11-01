@@ -1,6 +1,7 @@
 import json, re, csv
 
 from jugador import Jugador
+from estadisticas import Estadisticas
 from typing import List
 
 def validar_lista_Jugador(lista_jugadores:List[Jugador]) -> bool:
@@ -65,6 +66,7 @@ def mostrar_menu_principal():
     print("8. Exportar a CSV.")
     print("EJERCICIOS AGREGADOS")
     print("9. Ordenar y guardar listado de jugadores por su promedio de asistencias por partido en archivo .csv y .json.")
+    print("10. En desarrollo...")
     print("0. Salir del programa")
 
 def pedir_un_numero_entero_regex(mensaje:str, mensaje_error:str) -> int:
@@ -654,3 +656,27 @@ def pedir_un_nombre_regex(mensaje:str, mensaje_de_error:str) -> str:
         else:
             print(mensaje_de_error)            
     return retorno
+
+def ordenar_jugadores_dos_valores(lista_jugadores:list[Jugador], decendente:bool) -> list[Jugador]:
+    lista_jugadores_ordenada = []
+
+    if validar_lista_Jugador(lista_jugadores):
+        lista_jugadores_ordenada = lista_jugadores
+        jugador_aux = lista_jugadores[0]
+
+        for i in range(0, len(lista_jugadores_ordenada)):
+            for j in range(0, len(lista_jugadores_ordenada) - 1):
+                if decendente:
+                    if (lista_jugadores_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales()) < (lista_jugadores_ordenada[j].get_estadisticas().get_robos_totales_mas_bloqueos_totales()):
+                        jugador_aux = lista_jugadores_ordenada[i]
+                        lista_jugadores_ordenada[i] = lista_jugadores_ordenada[j]
+                        lista_jugadores_ordenada[j] = jugador_aux
+                else:
+                    if (lista_jugadores_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales()) > (lista_jugadores_ordenada[j].get_estadisticas().get_robos_totales_mas_bloqueos_totales()):
+                        jugador_aux = lista_jugadores_ordenada[i]
+                        lista_jugadores_ordenada[i] = lista_jugadores_ordenada[j]
+                        lista_jugadores_ordenada[j] = jugador_aux
+
+
+    return lista_jugadores_ordenada 
+

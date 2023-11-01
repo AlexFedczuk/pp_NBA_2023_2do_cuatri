@@ -12,6 +12,7 @@ class Estadisticas():
         self.porcentaje_tiros_de_campo = estadisticas['porcentaje_tiros_de_campo'] 
         self.porcentaje_tiros_libres = estadisticas['porcentaje_tiros_libres'] 
         self.porcentaje_tiros_triples = estadisticas['porcentaje_tiros_triples']
+        self.robos_totales_mas_bloqueos_totales = self.get_robos_totales() + self.get_bloqueos_totales()
 
     def get_temporadas(self) -> int:
         return self.temporadas
@@ -48,6 +49,9 @@ class Estadisticas():
     
     def get_porcentaje_tiros_triples(self) -> float:
         return self.porcentaje_tiros_triples
+    
+    def get_robos_totales_mas_bloqueos_totales(self) -> int:
+        return self.robos_totales_mas_bloqueos_totales
     
     def set_temporadas(self, temporadas:int) -> None:
         self.temporadas = temporadas

@@ -5,6 +5,15 @@ from estadisticas import Estadisticas
 from typing import List
 
 def validar_lista_Jugador(lista_jugadores:List[Jugador]) -> bool:
+    """
+        Valida que la lista de jugadores sea de tipo List y que contenga elementos tipo Jugador.
+
+        Parámetros:
+        - lista_jugadores(List[Jugador]): La lista a evaludar.
+
+        Returns:
+        - resultado (bool): Devuelve True si esta todo Ok, False si no.       
+    """
     resultado = True
 
     if lista_jugadores == None or lista_jugadores == []:

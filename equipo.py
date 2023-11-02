@@ -52,6 +52,15 @@ class Equipo():
         return retorno
     
     def cargar_lista_jugadores(self) -> list[Jugador]:
+        """
+            Devuelve una lista con los datos de una lista de jugadores.
+
+            Parámetros:
+                - self
+
+            Returns:
+            - lista_jugadores(list[Jugador]): Devuelve una lista de jugadores si ok, una vacia si mal.       
+        """
         lista_jugadores = []
 
         for jugador in self.equipo['jugadores']:

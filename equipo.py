@@ -87,9 +87,26 @@ class Equipo():
         if validar_lista_Jugador(lista_jugadores) and nombre_archivo != None:
             lista_dict_jugadores = []
             for jugador in lista_jugadores:
-                diccionario_aux = {}
-                diccionario_aux[str(jugador.get_nombre())] = jugador.get_estadisticas().get_promedio_asistencias_por_partido()
-                lista_dict_jugadores.append(diccionario_aux)
+                jugador_json = {
+                    'nombre': jugador.get_nombre(),
+                    'posicion': jugador.get_posicion(),
+                    'estadisticas': {
+                        "temporadas": jugador.get_estadisticas().get_temporadas(),
+                        "puntos_totales": jugador.get_estadisticas().get_puntos_totales(),
+                        "promedio_puntos_por_partido": jugador.get_estadisticas().get_promedio_puntos_por_partido(),
+                        "rebotes_totales": jugador.get_estadisticas().get_rebotes_totales(),
+                        "promedio_rebotes_por_partido": jugador.get_estadisticas().get_promedio_rebotes_por_partido(),
+                        "asistencias_totales": jugador.get_estadisticas().get_asistencias_totales(),
+                        "promedio_asistencias_por_partido": jugador.get_estadisticas().get_promedio_asistencias_por_partido(),
+                        "robos_totales": jugador.get_estadisticas().get_robos_totales(),
+                        "bloqueos_totales": jugador.get_estadisticas().get_bloqueos_totales(),
+                        "porcentaje_tiros_de_campo": jugador.get_estadisticas().get_porcentaje_tiros_de_campo(),
+                        "porcentaje_tiros_libres": jugador.get_estadisticas().get_porcentaje_tiros_libres(),
+                        "porcentaje_tiros_triples": jugador.get_estadisticas().get_porcentaje_tiros_triples()
+                        },
+                    'logros': jugador.get_logros()
+                }
+                lista_dict_jugadores.append(jugador_json)
 
             with open(nombre_archivo, 'w') as archivo_json:
                 json.dump(lista_dict_jugadores, archivo_json)

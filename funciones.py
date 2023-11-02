@@ -75,7 +75,7 @@ def mostrar_menu_principal():
     print("8. Exportar a CSV.")
     print("EJERCICIOS AGREGADOS")
     print("9. Ordenar y guardar listado de jugadores por su promedio de asistencias por partido en archivo .csv y .json.")
-    print("10. En desarrollo...")
+    print("10. Ordenar y listar los datos por el jugador que sumando los robos totales más los bloqueos totales.")
     print("0. Salir del programa")
 
 def pedir_un_numero_entero_regex(mensaje:str, mensaje_error:str) -> int:

@@ -674,6 +674,16 @@ def pedir_un_nombre_regex(mensaje:str, mensaje_de_error:str) -> str:
     return retorno
 
 def ordenar_jugadores_dos_valores(lista_jugadores:list[Jugador], descendente:bool) -> list[Jugador]:
+    """
+        Ordena una lista de objetos Jugador de acuerdo a la suma de dos valores estadísticos.
+
+        Parámetros:
+        - lista_jugadores (list[Jugador]): Lista de objetos Jugador a ordenar.
+        - descendente (bool): Si es True ordena de forma descendente, si es False ordena ascendente.
+
+        Returns:
+        - list[Jugador]: Lista ordenada de objetos Jugador.        
+    """
     lista_jugadores_ordenada = []
 
     if validar_lista_Jugador(lista_jugadores):
@@ -696,7 +706,16 @@ def ordenar_jugadores_dos_valores(lista_jugadores:list[Jugador], descendente:boo
 
     return lista_jugadores_ordenada
 
-def conseguir_valor_maximo_robos_totales_mas_bloqueos_totales(lista_jugadores:list[Jugador]):
+def conseguir_valor_maximo_robos_totales_mas_bloqueos_totales(lista_jugadores:list[Jugador]) -> int:
+    """
+        Consigue el valor maximo de un tipo de estadistica de la lista Jugador.
+
+        Parámetros:
+        - lista_jugadores (list[Jugador]): Lista de objetos Jugador a revisar.
+
+        Returns:
+        - valor_maximo:int Valor maximo de 'robos_totales_mas_bloqueos_totales' de la lista Jugador.        
+    """
     valor_maximo = None
 
     if validar_lista_Jugador(lista_jugadores):
@@ -706,10 +725,30 @@ def conseguir_valor_maximo_robos_totales_mas_bloqueos_totales(lista_jugadores:li
 
     return valor_maximo
 
-def conseguir_porcentaje(valor_maximo:int or float, valor_ingresado:int or float) -> float:
+def calcular_porcentaje(valor_maximo:int or float, valor_ingresado:int or float) -> float:
+    """
+        Calcula el porcentaje del valor ingresado respecto al valor maximo..
+
+        Parámetros:
+        - valor_maximo (int or float): El valor maximo, el 100%.
+        - valor_ingresado (int or float): El valor ingresado.
+
+        Returns:
+        - El porcentaje calculado tipo float y con un maximo de dos cifras.        
+    """
     return round((valor_ingresado * 100) / valor_maximo, 2)
 
 def pedir_numero_con_rango(maximo:int, minimo:int) -> int:
+    """
+        Pide por consola que se ingrese un numero entero y con un maximo y minimo requerido.
+
+        Parámetros:
+        - maximo (int): El maximo que puede ser el numero ingresado.
+        - minimo (int): El minimo que puede ser el numero ingresado.
+
+        Returns:
+        - numero_ingresado (int): El numero ingresado        
+    """
     while True:
         numero_ingresado = pedir_un_numero_entero_regex(f"Ingrese un numero no mayor a {maximo} y no menor a {minimo}: ", "ERROR! Valor invalido ingresado.")
 

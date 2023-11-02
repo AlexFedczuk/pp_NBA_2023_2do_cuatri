@@ -249,7 +249,7 @@ def controlador_opcion_diez(lista_jugadores:list[Jugador]) -> int:
         numero_ingresado = pedir_numero_con_rango(len(lista_jugadores), 1)
         print("\nNombre - Robos Totales + Bloqueos Totales - Porcentaje:\n******************************************************")
         for i in range(0, numero_ingresado):
-            print(f"{lista_ordenada[i].get_nombre()} - {lista_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales()} - {conseguir_porcentaje(valor_maximo, lista_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales())}%")
+            print(f"{lista_ordenada[i].get_nombre()} - {lista_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales()} - {calcular_porcentaje(valor_maximo, lista_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales())}%")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")

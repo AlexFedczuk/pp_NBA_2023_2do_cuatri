@@ -76,6 +76,7 @@ def mostrar_menu_principal():
     print("EJERCICIOS AGREGADOS")
     print("9. Ordenar y guardar listado de jugadores por su promedio de asistencias por partido en archivo .csv y .json.")
     print("10. Ordenar y listar los datos por el jugador que sumando los robos totales más los bloqueos totales.")
+    print("11. Crear la tabla posiciones.")
     print("0. Salir del programa")
 
 def pedir_un_numero_entero_regex(mensaje:str, mensaje_error:str) -> int:
@@ -831,3 +832,55 @@ def guardar_lista_jugadores_db(lista_jugadores:list[Jugador]) -> int:
         conexion.commit()
 
         conexion.close()
+
+def crear_tabla_posiciones(lista_jugadores:list[Jugador]) -> int:
+    """
+        Crea una tabla de db con las posiciones de los jugadores de la lista.
+
+        Parámetros:
+        - lista_jugadores:list[Jugador]: la lista de jugadores.
+
+        Returns:
+        - Devuelve 1 si ok, 0 si sale algo mal.    
+    """
+    retorno = 0
+    if validar_lista_Jugador(lista_jugadores):
+        conexion = sqlite3.connect('posiciones_del_Dream_Team.db')
+        cursor = conexion.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Posiciones (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre_posicion TEXT
+            )
+        ''')
+
+        lista_posiciones = conseguir_posiciones(lista_jugadores)
+        for posicion in lista_posiciones:
+            cursor.execute('''
+                INSERT INTO Posiciones (
+                    nombre_posicion
+                ) VALUES (?)
+                ''',(posicion,))
+
+        conexion.commit()
+        conexion.close()
+        retorno = 1
+    return retorno
+
+def conseguir_posiciones(lista_jugadores:list[Jugador]) -> list[str]:
+    """
+        Consigue todas las posiciones existentes.
+
+        Parámetros:
+        - lista_jugadores:list[Jugador]: la lista de jugadores.
+
+        Returns:
+        - Devuelve la lista de posiciones, o una lista vacia si algo sale mal.      
+    """
+    if validar_lista_Jugador(lista_jugadores):
+        lista_posiciones = []
+
+        for jugador in lista_jugadores:
+            if jugador.get_posicion() not in lista_posiciones:
+                lista_posiciones.append(jugador.get_posicion())
+    return lista_posiciones

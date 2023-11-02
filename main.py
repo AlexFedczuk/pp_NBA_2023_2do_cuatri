@@ -1,5 +1,3 @@
-import sqlite3
-
 from funciones import mostrar_menu_principal, pedir_un_numero_entero_regex
 from equipo import Equipo
 from controladores import *
@@ -38,6 +36,8 @@ while condicion:
             controlador_opcion_nueve(lista_jugadores)
         case 10:
             controlador_opcion_diez(lista_jugadores)
+        case 11:
+            controlador_opcion_once(lista_jugadores)
         case 0:
             print("\nSaliendo del programa...")
             condicion = False

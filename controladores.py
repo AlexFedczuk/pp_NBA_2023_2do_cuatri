@@ -224,6 +224,7 @@ def controlador_opcion_nueve(lista_jugadores:list[Jugador]) -> int:
         nombre_archivo_json = pedir_un_nombre_regex("Ingrese un nombre para el archivo JSON: ", "ERROR! Valor invalido ingresado.")
         Equipo.guardar_lista_jugadores_a_json(lista_jugadores_ordenanda, nombre_archivo_json + ".json")
         guardar_lista_jugadores_db(lista_jugadores_ordenanda)
+        print("Se creo la tabla de jugadores en la DB con exito!")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")
@@ -251,6 +252,29 @@ def controlador_opcion_diez(lista_jugadores:list[Jugador]) -> int:
         print("\nNombre - Robos Totales + Bloqueos Totales - Porcentaje:\n******************************************************")
         for i in range(0, numero_ingresado):
             print(f"{lista_ordenada[i].get_nombre()} - {lista_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales()} - {calcular_porcentaje(valor_maximo, lista_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales())}%")
+        retorno = 1
+    else:
+        print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")
+
+    return retorno
+
+def controlador_opcion_once(lista_jugadores:list[Jugador]) -> int:
+    """
+        Se encarga de contener todas las funciones necesarias para 
+        realizar el algoritmo de la opcion 11 del menu principal.
+
+        Parametros:
+        lista : list
+            Una lista de variables, en este caso serian jugadores del Dream Team.
+        
+        Returns:
+        Retorna un numero entero (0) si algo salio mal, (1) si se pudo realizar la tarea con exito.
+    """
+    retorno = 0
+
+    if validar_lista_Jugador(lista_jugadores):
+        crear_tabla_posiciones(lista_jugadores)
+        print("Se creo la tabla de posiciones en la DB con exito!")
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")

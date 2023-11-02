@@ -223,6 +223,7 @@ def controlador_opcion_nueve(lista_jugadores:list[Jugador]) -> int:
         Equipo.guardar_una_lista_en_csv(lista_jugadores_ordenanda, "fedczuk.csv")
         nombre_archivo_json = pedir_un_nombre_regex("Ingrese un nombre para el archivo JSON: ", "ERROR! Valor invalido ingresado.")
         Equipo.guardar_lista_jugadores_a_json(lista_jugadores_ordenanda, nombre_archivo_json + ".json")
+        guardar_lista_jugadores_db(lista_jugadores_ordenanda)
         retorno = 1
     else:
         print("\nERROR! No hay elementos cargados en la lista para realizar esta operacion.")

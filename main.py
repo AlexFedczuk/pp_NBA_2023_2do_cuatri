@@ -1,3 +1,5 @@
+import sqlite3
+
 from funciones import mostrar_menu_principal, pedir_un_numero_entero_regex
 from equipo import Equipo
 from controladores import *

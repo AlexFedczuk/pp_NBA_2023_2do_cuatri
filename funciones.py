@@ -1,4 +1,4 @@
-import json, re, csv
+import json, re, csv, sqlite3
 
 from jugador import Jugador
 from estadisticas import Estadisticas
@@ -766,5 +766,68 @@ def pedir_numero_con_rango(maximo:int, minimo:int) -> int:
 
     return numero_ingresado
 
+def guardar_lista_jugadores_db(lista_jugadores:list[Jugador]) -> int:
 
+    if validar_lista_Jugador(lista_jugadores):
+        conexion = sqlite3.connect('jugadores_del_Dream_Team.db')
 
+        cursor = conexion.cursor()
+
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Jugadores (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre TEXT,
+                posicion TEXT,
+                temporadas INTEGER,
+                puntos_totales INTEGER,
+                promedio_puntos REAL,
+                rebotes_totales INTEGER,
+                promedio_rebotes REAL,
+                asistencias_totales INTEGER,
+                promedio_asistencias REAL,
+                robos_totales INTEGER,
+                bloqueos_totales INTEGER,
+                porcentaje_tiros_campo REAL,
+                porcentaje_tiros_libres REAL,
+                porcentaje_tiros_triples REAL
+            )
+        ''')
+
+        for jugador in lista_jugadores:
+            cursor.execute('''
+                INSERT INTO Jugadores (
+                    nombre,
+                    posicion, 
+                    temporadas, 
+                    puntos_totales, 
+                    promedio_puntos,
+                    rebotes_totales, 
+                    promedio_rebotes, 
+                    asistencias_totales,
+                    promedio_asistencias, 
+                    robos_totales, 
+                    bloqueos_totales,
+                    porcentaje_tiros_campo, 
+                    porcentaje_tiros_libres,
+                    porcentaje_tiros_triples
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ''', (
+                jugador.get_nombre(),
+                jugador.get_posicion(),
+                jugador.get_estadisticas().get_temporadas(),
+                jugador.get_estadisticas().get_puntos_totales(),
+                jugador.get_estadisticas().get_promedio_puntos_por_partido(),
+                jugador.get_estadisticas().get_rebotes_totales(),
+                jugador.get_estadisticas().get_promedio_rebotes_por_partido(),
+                jugador.get_estadisticas().get_asistencias_totales(),
+                jugador.get_estadisticas().get_promedio_asistencias_por_partido(),
+                jugador.get_estadisticas().get_robos_totales(),
+                jugador.get_estadisticas().get_bloqueos_totales(),
+                jugador.get_estadisticas().get_porcentaje_tiros_de_campo(),
+                jugador.get_estadisticas().get_porcentaje_tiros_libres(),
+                jugador.get_estadisticas().get_porcentaje_tiros_triples()
+            ))
+
+        conexion.commit()
+
+        conexion.close()

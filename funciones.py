@@ -624,21 +624,57 @@ def guardar_una_lista_en_csv(lista_jugadores:list[Jugador], nombre_del_archivo:s
         retorno = 0
     return retorno
 
-def ordenar_jugadores_por_promedio_asist_partido(lista_jugadores:list[Jugador]) -> list[Jugador]:
+def ordenar_jugadores_por_promedio_asist_partido(lista_jugadores:list[Jugador], descendente:bool) -> list[Jugador]:
     """
-        Ordena la lista de jugadores por promedio_asistencias_por_partido.
+        Ordena una lista de objetos Jugador de acuerdo a la suma de dos valores estadísticos.
 
-        Parametros:
-        lista : list
-            La lista de jugadores.
-        
+        Parámetros:
+        - lista_jugadores (list[Jugador]): Lista de objetos Jugador a ordenar.
+        - descendente (bool): Si es True ordena de forma descendente, si es False ordena ascendente.
+
         Returns:
-        tipo : float
-            Devuelve una lista ordenada.
+        - list[Jugador]: Lista ordenada de objetos Jugador.        
     """
-    lista_jugadores.sort(key=lambda x: x.get_estadisticas().get_promedio_asistencias_por_partido(), reverse=True)
+    if len(lista_jugadores) <= 1:
+        return lista_jugadores
+    
+    pivot = lista_jugadores[0]
+    menores = []
+    iguales = []
+    mayores = []
+    
+    for jugador in lista_jugadores:
+        if jugador.get_estadisticas().get_promedio_asistencias_por_partido() < pivot.get_estadisticas().get_promedio_asistencias_por_partido():
+            menores.append(jugador)
+        elif jugador.get_estadisticas().get_promedio_asistencias_por_partido() == pivot.get_estadisticas().get_promedio_asistencias_por_partido():
+            iguales.append(jugador)
+        else:
+            mayores.append(jugador)
+    
+    if descendente:
+        return ordenar_jugadores_por_promedio_asist_partido(mayores, descendente) + iguales + ordenar_jugadores_por_promedio_asist_partido(menores, descendente)
+    else:
+        return ordenar_jugadores_por_promedio_asist_partido(menores, descendente) + iguales + ordenar_jugadores_por_promedio_asist_partido(mayores, descendente)
 
-    return lista_jugadores
+"""
+    lista_jugadores_ordenada = []
+    if validar_lista_Jugador(lista_jugadores):
+        lista_jugadores_ordenada = lista_jugadores
+        jugador_aux = lista_jugadores[0]
+
+        for i in range(0, len(lista_jugadores_ordenada)):
+            for j in range(0, len(lista_jugadores_ordenada) - 1):
+                if descendente:
+                    if (lista_jugadores_ordenada[i].get_estadisticas().get_promedio_asistencias_por_partido()) < (lista_jugadores_ordenada[j].get_estadisticas().get_promedio_asistencias_por_partido()):
+                        jugador_aux = lista_jugadores_ordenada[i]
+                        lista_jugadores_ordenada[i] = lista_jugadores_ordenada[j]
+                        lista_jugadores_ordenada[j] = jugador_aux
+                else:
+                    if (lista_jugadores_ordenada[i].get_estadisticas().get_promedio_asistencias_por_partido()) > (lista_jugadores_ordenada[j].get_estadisticas().get_promedio_asistencias_por_partido()):
+                        jugador_aux = lista_jugadores_ordenada[i]
+                        lista_jugadores_ordenada[i] = lista_jugadores_ordenada[j]
+                        lista_jugadores_ordenada[j] = jugador_aux
+"""
 
 def guardar_lista_jugadores_a_json(lista_jugadores:list[Jugador], nombre_archivo:str) -> int:
     retorno = 0
@@ -694,27 +730,26 @@ def ordenar_jugadores_dos_valores(lista_jugadores:list[Jugador], descendente:boo
         Returns:
         - list[Jugador]: Lista ordenada de objetos Jugador.        
     """
-    lista_jugadores_ordenada = []
-
-    if validar_lista_Jugador(lista_jugadores):
-        lista_jugadores_ordenada = lista_jugadores
-        jugador_aux = lista_jugadores[0]
-
-        for i in range(0, len(lista_jugadores_ordenada)):
-            for j in range(0, len(lista_jugadores_ordenada) - 1):
-                if descendente:
-                    if (lista_jugadores_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales()) < (lista_jugadores_ordenada[j].get_estadisticas().get_robos_totales_mas_bloqueos_totales()):
-                        jugador_aux = lista_jugadores_ordenada[i]
-                        lista_jugadores_ordenada[i] = lista_jugadores_ordenada[j]
-                        lista_jugadores_ordenada[j] = jugador_aux
-                else:
-                    if (lista_jugadores_ordenada[i].get_estadisticas().get_robos_totales_mas_bloqueos_totales()) > (lista_jugadores_ordenada[j].get_estadisticas().get_robos_totales_mas_bloqueos_totales()):
-                        jugador_aux = lista_jugadores_ordenada[i]
-                        lista_jugadores_ordenada[i] = lista_jugadores_ordenada[j]
-                        lista_jugadores_ordenada[j] = jugador_aux
-
-
-    return lista_jugadores_ordenada
+    if len(lista_jugadores) <= 1:
+        return lista_jugadores
+    
+    pivot = lista_jugadores[0]
+    menores = []
+    iguales = []
+    mayores = []
+    
+    for jugador in lista_jugadores:
+        if jugador.get_estadisticas().get_robos_totales_mas_bloqueos_totales() < pivot.get_estadisticas().get_robos_totales_mas_bloqueos_totales():
+            menores.append(jugador)
+        elif jugador.get_estadisticas().get_robos_totales_mas_bloqueos_totales() == pivot.get_estadisticas().get_robos_totales_mas_bloqueos_totales():
+            iguales.append(jugador)
+        else:
+            mayores.append(jugador)
+    
+    if descendente:
+        return ordenar_jugadores_dos_valores(mayores, descendente) + iguales + ordenar_jugadores_dos_valores(menores, descendente)
+    else:
+        return ordenar_jugadores_dos_valores(menores, descendente) + iguales + ordenar_jugadores_dos_valores(mayores, descendente)
 
 def conseguir_valor_maximo_robos_totales_mas_bloqueos_totales(lista_jugadores:list[Jugador]) -> int:
     """
@@ -855,6 +890,7 @@ def crear_tabla_posiciones(lista_jugadores:list[Jugador]) -> int:
         ''')
 
         lista_posiciones = conseguir_posiciones(lista_jugadores)
+        print(lista_jugadores)
         for posicion in lista_posiciones:
             cursor.execute('''
                 INSERT INTO Posiciones (
